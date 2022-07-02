@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <!-- Metadata -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type='text/css' href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src='script.js'></script>
+    
+    <title>The Word(le)</title>
+
+</head>
+
+<body>       
+    <div id="mainContainer">
+        <div id="logoContainer">
+            <img id="logo" src="logo.png">
+            <i id="infoButton" class="fa-solid fa-circle-info" data-toggle="modal" data-target="#aboutModal"></i>
+        </div>
+
+        <!-- Guess Row Container -->
+        <div id="wordsContainer">
+            
+            <!-- Guess Row 1 -->
+            <div class="wordGuess">
+                <div class="letterBox" id="word0Letter0"></div>
+                <div class="letterBox" id="word0Letter1"></div>
+                <div class="letterBox" id="word0Letter2"></div>
+                <div class="letterBox" id="word0Letter3"></div>
+                <div class="letterBox" id="word0Letter4"></div>
+            </div>
+
+            <!-- Guess Row 2 -->
+            <div class="wordGuess">
+                <div class="letterBox" id="word1Letter0"></div>
+                <div class="letterBox" id="word1Letter1"></div>
+                <div class="letterBox" id="word1Letter2"></div>
+                <div class="letterBox" id="word1Letter3"></div>
+                <div class="letterBox" id="word1Letter4"></div>
+            </div>
+
+            <!-- Guess Row 3 -->
+            <div class="wordGuess">
+                <div class="letterBox" id="word2Letter0"></div>
+                <div class="letterBox" id="word2Letter1"></div>
+                <div class="letterBox" id="word2Letter2"></div>
+                <div class="letterBox" id="word2Letter3"></div>
+                <div class="letterBox" id="word2Letter4"></div>
+            </div>
+
+            <!-- Guess Row 4 -->
+            <div class="wordGuess">
+                <div class="letterBox" id="word3Letter0"></div>
+                <div class="letterBox" id="word3Letter1"></div>
+                <div class="letterBox" id="word3Letter2"></div>
+                <div class="letterBox" id="word3Letter3"></div>
+                <div class="letterBox" id="word3Letter4"></div>
+            </div>
+
+            <!-- Guess Row 5 -->
+            <div class="wordGuess">
+                <div class="letterBox" id="word4Letter0"></div>
+                <div class="letterBox" id="word4Letter1"></div>
+                <div class="letterBox" id="word4Letter2"></div>
+                <div class="letterBox" id="word4Letter3"></div>
+                <div class="letterBox" id="word4Letter4"></div>
+            </div>
+
+            <!--Guess Row 6 -->
+            <div class="wordGuess">
+                <div class="letterBox" id="word5Letter0"></div>
+                <div class="letterBox" id="word5Letter1"></div>
+                <div class="letterBox" id="word5Letter2"></div>
+                <div class="letterBox" id="word5Letter3"></div>
+                <div class="letterBox" id="word5Letter4"></div>
+            </div>
+
+            <!-- Clue Row -->
+            <div class="wordGuess">
+                <div id="clueButton">
+                    Generate Clue
+                </div>
+            </div>
+        </div>
+
+        <!-- Keyboard Container -->
+        <div class="keyboardContainer">
+
+            <!-- Keyboard Row 1 -->
+            <div class="keyboardRow" id="keyboardRow1">
+                <div class="keyboardLetter" id="letterKeyQ">Q</div>
+                <div class="keyboardLetter" id="letterKeyW">W</div>
+                <div class="keyboardLetter" id="letterKeyE">E</div>
+                <div class="keyboardLetter" id="letterKeyR">R</div>
+                <div class="keyboardLetter" id="letterKeyT">T</div>
+                <div class="keyboardLetter" id="letterKeyY">Y</div>
+                <div class="keyboardLetter" id="letterKeyU">U</div>
+                <div class="keyboardLetter" id="letterKeyI">I</div>
+                <div class="keyboardLetter" id="letterKeyO">O</div>
+                <div class="keyboardLetter" id="letterKeyP">P</div>
+            </div>
+
+            <!-- Keyboard Row 2 -->
+            <div class="keyboardRow" id="keyboardRow2">
+                <div class="keyboardLetter" id="letterKeyA">A</div>
+                <div class="keyboardLetter" id="letterKeyS">S</div>
+                <div class="keyboardLetter" id="letterKeyD">D</div>
+                <div class="keyboardLetter" id="letterKeyF">F</div>
+                <div class="keyboardLetter" id="letterKeyG">G</div>
+                <div class="keyboardLetter" id="letterKeyH">H</div>
+                <div class="keyboardLetter" id="letterKeyJ">J</div>
+                <div class="keyboardLetter" id="letterKeyK">K</div>
+                <div class="keyboardLetter" id="letterKeyL">L</div>
+            </div>
+
+            <!-- Keyboard Row 3 -->
+            <div class="keyboardRow" id="keyboardRow3">
+                <div id="letterKeyEnter">Enter</div>
+                <div class="keyboardLetter" id="letterKeyZ">Z</div>
+                <div class="keyboardLetter" id="letterKeyX">X</div>
+                <div class="keyboardLetter" id="letterKeyC">C</div>
+                <div class="keyboardLetter" id="letterKeyV">V</div>
+                <div class="keyboardLetter" id="letterKeyB">B</div>
+                <div class="keyboardLetter" id="letterKeyN">N</div>
+                <div class="keyboardLetter" id="letterKeyM">M</div>
+                <div id="letterKeyRemove"><i class="fas fa-backspace"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Modal -->
+    <div id="aboutModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm aboutModal" role="document">
+          <div class="modal-content">
+            <div id="aboutModalHeader" class="modal-header">
+              <h3 id="aboutModalTitle"class="modal-title">The Word(le)</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Guess the Bible-Themed Word in Six Tries!
+                    <br><br>
+                    After each guess, the color of the tiles will change to show how close your guess was to the word.
+                    <br><br>- A <span id="greenText">Green</span> tile means the letter is in the correct place.
+                    <br><br>- A <span id="orangeText">Orange</span> tile means the letter is in the word, but in the wrong place.
+                    <br><br>- A <span id="greyText">Grey</span> tile means the letter is not in the word.
+                    <br><br>
+                    A new Bible Word will be available each day!
+                </p>
+            </div>
+            <div id="aboutModalClose" class="modal-footer">
+              <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Notification Modal -->
+    <div id="notificationModal" class="modal centerModey" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p id="notificationText"></p>
+                </div>
+                <div id="notificationModalClose" class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 97%;
+}
+
+body {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    color: #333 !important;
+    height: 100%;
+}
+
+#logoContainer {
+    display: flex;
+    align-items: center;
+    font-size: xx-large;
+    height: 60px;
+    width: 100%;
+    justify-content: space-evenly;
+    margin-top: 15px;
+}
+
+#mainContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+}
+
+#logo {
+    width: 85px;
+}
+
+#infoButton {
+    font-size: x-large;
+    cursor: pointer;
+    top: 15px;
+    right: 15px;
+    position: absolute;
+}
+
+#clueButton {
+    width: 230px;
+    height: 35px;
+    margin: 7px;
+    border: solid black 1.5px;
+    border-radius: 25px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;    
+    background: #000000c4;
+    color: white;
+}
+
+#wordsContainer {
+    max-width: 750px;
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 0 30px;
+}
+
+.keyboardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 97%;
+}
+
+.keyboardRow {
+    display: flex;
+    justify-content: space-around;
+    max-width: 650px;
+    width: 100%;
+}
+
+.wordGuess {
+    display: flex;
+    justify-content: center;
+    font-size: xx-large;
+}
+
+.letterBox {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid black 1px;
+    background-color: whitesmoke;
+    opacity: 90%;
+    border-radius: 10px;
+    box-shadow: 3px 3px darkslategrey;
+}
+
+#clueButton {
+    visibility: hidden;
+}
+
+.keyboardLetter, #letterKeyRemove, #letterKeyEnter {
+    border: solid black 1px;
+    background: lightgrey;
+    font-weight: bold;
+    height: 50px;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    margin: 0.75%;
+    border-radius: 5px;
+    box-shadow: 2px 2px darkslategrey;
+}
+
+#keyboardRow2 {
+    padding: 0px 15px;
+}
+
+#letterKeyEnter {
+    width: 50px;
+    font-size: 10.5pt;
+}
+
+.keyboardLetter:hover, #letterKeyRemove:hover, #letterKeyEnter:hover {
+    cursor: pointer;
+    background-color: grey;
+}
+
+/* .aboutModal {
+    width: 75% !important;
+} */
+
+#aboutModalHeader, #aboutModalClose {
+    text-align: center;
+}
+
+#aboutModalTitle {
+    display: inline;
+}
+
+.centerModey {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+#notificationModal {
+    width: 325px;
+}
+
+#notificationText, #notificationModalClose {
+    text-align: center;
+    margin: 0px;
+}
+
+
+
+#greenText {
+    color: #69ab63;
+    font-weight: bold;
+}
+
+#orangeText {
+    color: #c7af47;
+    font-weight: bold;
+}
+
+#greyText {
+    color: #6e7476;
+    font-weight: bold;
+}
+
+.letterInWord {
+    animation: letterAnimation 0.75s ease 0s 1 normal forwards, letterInWordAnimation 1.25s ease 0s 1 normal forwards;
+}
+
+.correctLetter {
+    animation: letterAnimation 0.75s ease 0s 1 normal forwards, correctLetterAnimation 1.25s ease 0s 1 normal forwards;
+}
+
+.wrongLetter {
+    animation: letterAnimation 0.75s ease 0s 1 normal forwards, wrongLetterAnimation 1.25s ease 0s 1 normal forwards;
+}
+
+@keyframes letterInWordAnimation {
+    to {background-color: #c7af47;}
+    to {color: white;}
+}
+
+@keyframes correctLetterAnimation {
+    to {background-color: #69ab63;}
+    to {color: white;}
+}
+
+@keyframes wrongLetterAnimation {
+    to {background-color: #6e7476;}
+    to {color: white;}
+}
+
+@keyframes letterAnimation {
+
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.2;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
