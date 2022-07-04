@@ -16,7 +16,7 @@
     <!-- Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src='script.js'></script>
+    <script type="module" src='script.js'></script>
     
     <title>The Word(le)</title>
 
@@ -25,7 +25,7 @@
 <body>       
     <div id="mainContainer">
         <div id="logoContainer">
-            <img id="logo" src="logo.png">
+            <img id="logo" src="assets/logo.png">
             <i id="infoButton" class="fa-solid fa-circle-info" data-toggle="modal" data-target="#aboutModal"></i>
         </div>
 
@@ -158,6 +158,8 @@
                     <br><br>- A <span id="orangeText">Orange</span> tile means the letter is in the word, but in the wrong place.
                     <br><br>- A <span id="greyText">Grey</span> tile means the letter is not in the word.
                     <br><br>
+                    <i>A clue will be offered after 4 unsuccessful attempts.</i>
+                    <br><br>
                     A new Bible Word will be available each day!
                 </p>
             </div>
@@ -168,15 +170,43 @@
         </div>
     </div>
 
-    <!-- Notification Modal -->
-    <div id="notificationModal" class="modal centerModey" tabindex="-1" role="dialog">
+    <!-- Not Enough Letters Notification Modal -->
+    <div id="invalidLengthModal" class="modal centerModey" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p id="notificationText"></p>
+                    <p class="infoText">Please enter a five letter word!</p>
                 </div>
-                <div id="notificationModalClose" class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                <div id="invalidLengthModalModalClose" class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invalid Word Notification Modal -->
+    <div id="invalidWordModal" class="modal centerModey" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="infoText">Not a valid word!</p>
+                </div>
+                <div id="invalidWordModalClose" class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clue Modal -->
+    <div id="clueModal" class="modal centerModey" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p id="clueText"></p>
+                </div>
+                <div id="clueModalClose" class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

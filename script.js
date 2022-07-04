@@ -1,9 +1,12 @@
 
-let correctWord = 'spice';
+import { todaysWord } from './assets/bibleWords.mjs';
+import { validWords } from './assets/validWords.mjs';
+
+// - Word and Letter counters are 0 indexed.
+let correctWord = todaysWord['word'].toLowerCase();
 let wordCounter = 0;
 let letterCounter = 0;
 
-// Note word and letetr counters are 0 indexed.
 
 $(document).ready(function(){
     
@@ -28,13 +31,18 @@ $(document).ready(function(){
     $("#letterKeyRemove").click(function(){
         removeLetter();
     });
+
+    // Generate Clue
+    $("#clueButton").click(function(){
+        generateClue();
+    });
+
 });
 
-async function evaluateUserWord() {
+function evaluateUserWord() {
 
     if (letterCounter != 5) {
-        $('#notificationModal').modal('toggle');       
-        $('#notificationText').html('Please enter a five letter word!');
+        $('#invalidLengthModal').modal('toggle');       
         return;
     }
 
@@ -42,13 +50,23 @@ async function evaluateUserWord() {
     let correctWordRemainingLetters = correctWord;
 
     // This is required to eliminate bugs with duplicate letters in a word to stop them also appearing orange!
-    for (i=0; i<5; i++){
+    for (let i=0; i<5; i++){
         userWordGuess += document.getElementById(`word${wordCounter}Letter${i}`).innerHTML.toLowerCase();
     }
 
-    for (i=0; i<5; i++){
+    // Store the word in guessedWord, as userWordGuess variable will be changed.
+    let guessedWord = userWordGuess;
+
+    // Check if guess is a valid word
+    if (!validWords.includes(userWordGuess)) {
+        $('#invalidWordModal').modal('toggle');
+        return;
+    }
+
+    for (let i=0; i<5; i++){
 
         let userLetterGuess = userWordGuess[i];
+        let className = '';
 
         // If guess letter in correct word && only 1 of that letter left in the guess word && isn't in correct place...
         if (correctWordRemainingLetters.includes(userLetterGuess) && (userWordGuess.split(userLetterGuess).length-1 === 1) && correctWordRemainingLetters[i] !== userLetterGuess) {
@@ -63,11 +81,11 @@ async function evaluateUserWord() {
         tileAddClass(i, className);
         keyboardAddClass(userLetterGuess.toUpperCase(), className);
 
-        userWordGuess = userWordGuess.replace(`${userLetterGuess}`,`_`);
+        userWordGuess = userWordGuess.replace(`${userLetterGuess}`,`_`)
     }
 
-    if (userWordGuess === correctWord) {
-        alert("Wooho you have won!");
+    if (guessedWord === correctWord) {
+        setTimeout(displayWinModal(), 2500);
     }
 
     wordCounter++;
@@ -99,11 +117,26 @@ function letterLogic(letterSelection){
     let currentLetter = `word${wordCounter}Letter${letterCounter}`;
 
     if (letterCounter > 4) {
-        $('#notificationModal').modal('toggle');       
-        $('#notificationText').html('You can only enter five characters!');
         return;
     }
 
     $(`#${currentLetter}`).html(letterSelection);
     letterCounter++;
 }
+
+function generateClue() {
+    let clueText = todaysWord['clue'];    
+    $('#clueText').html(`${clueText}`);
+
+    let clueBook = todaysWord['clueBook'];
+    if (clueBook != null) {
+        $('#clueText').append(`<br><br><b>Specific Book Clue:</b> ${clueBook}`);
+    }
+    
+    $('#clueModal').modal('toggle');
+    return;
+}
+
+function displayWinModal() {
+    alert("Winner");
+};

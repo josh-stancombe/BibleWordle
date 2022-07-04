@@ -51,7 +51,7 @@ body {
 #clueButton {
     width: 230px;
     height: 35px;
-    margin: 7px;
+    margin-top: 10px;
     border: solid black 1.5px;
     border-radius: 25px;
     font-size: 20px;
@@ -105,9 +105,9 @@ body {
     box-shadow: 3px 3px darkslategrey;
 }
 
-#clueButton {
+/* #clueButton {
     visibility: hidden;
-}
+} */
 
 .keyboardLetter, #letterKeyRemove, #letterKeyEnter {
     border: solid black 1px;
@@ -137,16 +137,16 @@ body {
     background-color: grey;
 }
 
-/* .aboutModal {
-    width: 75% !important;
-} */
-
 #aboutModalHeader, #aboutModalClose {
     text-align: center;
 }
 
 #aboutModalTitle {
     display: inline;
+}
+
+.aboutModal {
+    max-width: 655px;
 }
 
 .centerModey {
@@ -156,12 +156,17 @@ body {
     transform: translate(-50%, -50%) !important;
 }
 
-#notificationModal {
+#invalidWordModal, #invalidLengthModal {
     width: 325px;
 }
 
-#notificationText, #notificationModalClose {
-    text-align: center;
+.infoText {
+    height: 50px;
+    line-height: 3;   
+}
+
+.modal-footer, .infoText #clueText {
+    text-align: center !important;
     margin: 0px;
 }
 
@@ -221,6 +226,12 @@ body {
 
     100% {
         opacity: 1;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+    .aboutModal {
+        width: 75% !important;        
     }
 }
 
