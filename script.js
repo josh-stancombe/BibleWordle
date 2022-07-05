@@ -138,5 +138,8 @@ function generateClue() {
 }
 
 function displayWinModal() {
-    alert("Winner");
+    $('#winModal').modal('toggle');
+    $('#winModalHeader').html(todaysWord['word']);
+    $('#scriptueText').html(todaysWord['scripture']);
+    $('#scriptueBook').html(todaysWord['scriptureRef']);
 };

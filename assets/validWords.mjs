@@ -4808,7 +4808,6 @@ export const validWords = [
     "kebob",
     "cycad",
     "talky",
-    "fucks",
     "tapis",
     "amide",
     "dolce",
@@ -5068,7 +5067,6 @@ export const validWords = [
     "umiak",
     "cuppy",
     "hames",
-    "shits",
     "azine",
     "glads",
     "tacet",
@@ -5390,7 +5388,6 @@ export const validWords = [
     "sexed",
     "folic",
     "poxed",
-    "cunts",
     "anile",
     "kiths",
     "becks",
@@ -5634,7 +5631,6 @@ export const validWords = [
     "yecch",
     "fluky",
     "doeth",
-    "twats",
     "cruds",
     "bebug",
     "bider",
@@ -5756,5 +5752,6 @@ export const validWords = [
     "rumba",
     "biffy",
     "pupal",
-    "aaron"
+    "aaron",
+    "egypt"
 ];
