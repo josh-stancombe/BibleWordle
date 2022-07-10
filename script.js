@@ -37,6 +37,19 @@ $(document).ready(function(){
         generateClue();
     });
 
+    $("#submitBookGuess").click(function(){
+        $('#scriptureBook').slideDown("normal");
+        $('#scoreSection').slideDown("normal");
+        setTimeout(function(){
+            $('#questionSection').slideDown("normal");
+        }, 2500);
+        
+    });
+
+    $("#unsureBookGuess").click(function(){
+        $('#scriptureBook').slideUp("slow");
+    });
+
 });
 
 function evaluateUserWord() {
@@ -92,8 +105,8 @@ function evaluateUserWord() {
     letterCounter = 0;
 
     // Display Clue button if User is on 5th or more go.
-    if (wordCounter === 4) {
-        document.getElementById(`clueButton`).style.visibility = "visible"; 
+    if (wordCounter === 5) {
+        $('#clueButton').show();
     }
 }
 
@@ -129,7 +142,7 @@ function generateClue() {
     $('#clueText').html(`${clueText}`);
 
     let clueBook = todaysWord['clueBook'];
-    if (clueBook != null) {
+    if (clueBook != 'N/A') {
         $('#clueText').append(`<br><br><b>Specific Book Clue:</b> ${clueBook}`);
     }
     
@@ -140,6 +153,6 @@ function generateClue() {
 function displayWinModal() {
     $('#winModal').modal('toggle');
     $('#winModalHeader').html(todaysWord['word']);
-    $('#scriptueText').html(todaysWord['scripture']);
-    $('#scriptueBook').html(todaysWord['scriptureRef']);
+    $('#scriptureBook').html(`<a target="_blank" id="scriptureBookRef" class="blurBox" href='${todaysWord['link']}'><u>${todaysWord['scriptureRef']}</u></a>`);
+    $('#scriptureText').html(`${todaysWord['scripture']} <a id="readMoreLink" target="_blank" href='${todaysWord['link']}'>Read Chapter...</a>`);
 };

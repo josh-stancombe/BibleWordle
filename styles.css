@@ -49,19 +49,20 @@ body {
 }
 
 #clueButton {
+    display: none;
     width: 230px;
     height: 35px;
     margin-top: 10px;
+    margin-bottom: 10px;
     border: solid black 1.5px;
     border-radius: 25px;
     font-size: 20px;
-    display: flex;
     align-items: center;
     justify-content: center;
-    display: flex;
     cursor: pointer;    
     background: #000000c4;
     color: white;
+    text-align: center;
 }
 
 #wordsContainer {
@@ -104,10 +105,6 @@ body {
     border-radius: 10px;
     box-shadow: 3px 3px darkslategrey;
 }
-
-/* #clueButton {
-    visibility: hidden;
-} */
 
 .keyboardLetter, #letterKeyRemove, #letterKeyEnter {
     border: solid black 1px;
@@ -156,13 +153,14 @@ body {
     transform: translate(-50%, -50%) !important;
 }
 
-#invalidWordModal, #invalidLengthModal {
+#invalidWordModal, #invalidLengthModal, #clueModal {
     width: 325px;
 }
 
 .infoText {
-    height: 50px;
-    line-height: 3;   
+    text-align: center;
+    margin-top: 10px;
+    font-size: large;
 }
 
 .modal-footer, .infoText #clueText {
@@ -170,7 +168,73 @@ body {
     margin: 0px;
 }
 
+#winModalContainer {
+    width: auto;
+    max-width: 550px;
+}
 
+#winModalHeader {
+    font-weight: bold;
+    text-align: center;
+    font-size: larger;
+    background-color: #69ab63b8;
+}
+
+#scriptureBook {
+    margin-bottom: 15px;
+    margin-top: 5px;
+    text-align: center;
+    display: none;
+}
+
+#scriptureBook a {
+    color: darkblue;
+}
+
+#scriptureText {
+    margin-bottom: 15px;
+}
+
+#readMoreLink {
+    font-size: small;
+    font-style: italic;
+}
+
+#bookSelectContainer {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-evenly;
+    margin-bottom: 15px;
+}
+
+#bookSelect {
+    flex-grow: 1;
+}
+
+.separator {
+    display:flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+  
+.separator .line {
+    height: 1px;
+    flex: 1;
+    background-color: #000;
+}
+
+.separator p {
+    padding: 10px 15px 0px 15px;
+    font-size: large;
+}
+
+.centerText {
+    text-align: center;
+}
+
+#scoreSection, #questionSection {
+    display: none;
+}
 
 #greenText {
     color: #69ab63;
@@ -226,6 +290,16 @@ body {
 
     100% {
         opacity: 1;
+    }
+}
+
+@media only screen and (min-width: 450px) {
+    #bookSelectContainer {
+        justify-content: center;
+    }
+
+    #submitBookGuess {
+        margin-left: 25px;
     }
 }
 
