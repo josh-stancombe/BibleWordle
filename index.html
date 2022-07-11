@@ -161,7 +161,7 @@
                     <br>
                     Your score starts at 5, and reduces for every incorrect guess (after the first guess). An additional point is awarded for guessing the correct scripture book. <br>
                     <br>
-                    A clue will be offered after 5 unsuccessful attempts.
+                    A clue will be offered after 5 unsuccessful attempts (-1 point).
                 </p>
             </div>
             <div id="aboutModalClose" class="modal-footer">
@@ -237,7 +237,7 @@
                         
                         <div id="bookSelectContainer">
                             <div>
-                                <label for="bookSelect">Book: </label>
+                                <label for="bookSelect">Book:  </label>
                                 <select type="select" id="bookSelect" name="bookSelect">
                                     <option value="select"><i>Select</i></option>
                                     <option value="Genesis">Genesis</option>
@@ -310,7 +310,10 @@
                             </div>
                             <div>
                                 <button type="button" class="btn btn-success" id="submitBookGuess">Go</button>
-                                <button type="button" class="btn btn-basic" id="unsureBookGuess">Unsure</button>
+                                <button type="button" class="btn btn-basic" id="unsureBookGuess">X</button>
+                                <i id='correctBookGuess' class="fa-solid fa-circle-check"></i>
+                                <i id="wrongBookGuess" class="fa-solid fa-circle-xmark"></i>
+                                
                             </div>
                         </div>
                     </div>
@@ -320,9 +323,16 @@
                             <div class="line"></div>
                             <p>Your Score</p>
                             <div class="line"></div>
-                        </div>                   
-                        <br>
+                        </div>
+                        
+                        <div>
+                            <p>Your score is: <span id="userScore"></span></p>
+                            <p>Word Guess: <span id="wordGuesses"></span>pts.<br> Scripture Guess: <span id="scriptureGuess"></span>pts.<br> Clue Used: <span id="clueUsed"></span></p>
+                        </div>
+                        
                         <div class="centerText">
+                            <span>Have you beat your family & friends?</span>
+                            <br>
                             <button type="button" class="btn btn-succeed">Share <i class="fa-solid fa-share-nodes"></i></button>
                         </div>
                         <br>
@@ -330,13 +340,11 @@
 
                     
                     <div id="questionSection">
-                        <div class="separator">
+                        <!-- <div class="separator">
                             <div class="line"></div>
                             <p>Question</p>
                             <div class="line"></div>
-                        </div>
-                        
-                        <br>
+                        </div> -->
                         <div class="centerText">A new Bible Word will be available tomorrow! </div>
                     </div>
                 </div>

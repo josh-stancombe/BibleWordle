@@ -7,6 +7,9 @@ let correctWord = todaysWord['word'].toLowerCase();
 let wordCounter = 0;
 let letterCounter = 0;
 
+let userScore = 0;
+let wordScore = 0;
+let clueUsed = false;
 
 $(document).ready(function(){
     
@@ -35,19 +38,6 @@ $(document).ready(function(){
     // Generate Clue
     $("#clueButton").click(function(){
         generateClue();
-    });
-
-    $("#submitBookGuess").click(function(){
-        $('#scriptureBook').slideDown("normal");
-        $('#scoreSection').slideDown("normal");
-        setTimeout(function(){
-            $('#questionSection').slideDown("normal");
-        }, 2500);
-        
-    });
-
-    $("#unsureBookGuess").click(function(){
-        $('#scriptureBook').slideUp("slow");
     });
 
 });
@@ -89,24 +79,26 @@ function evaluateUserWord() {
             correctWordRemainingLetters = correctWordRemainingLetters.replace(`${userLetterGuess}`,`_`);
         } else {
             className = 'wrongLetter';
-        }
-        
-        tileAddClass(i, className);
-        keyboardAddClass(userLetterGuess.toUpperCase(), className);
+        }        
+       
+        // Add tile styling and increment letter / word counters.
+        addTileClass(i, className);        
+        keyboardAddClass(i, userLetterGuess.toUpperCase(), className);
 
         userWordGuess = userWordGuess.replace(`${userLetterGuess}`,`_`)
     }
 
-    if (guessedWord === correctWord) {
-        setTimeout(displayWinModal(), 2500);
-    }
-
-    wordCounter++;
-    letterCounter = 0;
-
-    // Display Clue button if User is on 5th or more go.
-    if (wordCounter === 5) {
-        $('#clueButton').show();
+    // If guess is correct...
+    if (guessedWord === correctWord) {       
+        // Show Win Modal
+        setTimeout(function(){
+            displayWinModal()
+        }, 3000);
+    } else {
+        // Display Clue button if User is on 4th or more go.
+        if (wordCounter === 3) {
+            $('#clueButton').delay(2500).fadeIn(1000);
+        }
     }
 }
 
@@ -118,12 +110,20 @@ function removeLetter() {
     }
 }
 
-function tileAddClass(i, className){
-    document.getElementById(`word${wordCounter}Letter${i}`).classList.add(className)
+function addTileClass (i, className) {
+    setTimeout(function() {
+        document.getElementById(`word${wordCounter}Letter${i}`).classList.add(className);
+        if (i === 4) {
+            wordCounter++;
+            letterCounter = 0;
+        } 
+    }, i*500);
 }
 
-function keyboardAddClass(letter, className){
-    document.getElementById(`letterKey${letter}`).classList.add(className);
+function keyboardAddClass(i, letter, className){
+    setTimeout(function() {
+        document.getElementById(`letterKey${letter}`).classList.add(className);
+    }, i*500);
 }
 
 function letterLogic(letterSelection){
@@ -137,16 +137,12 @@ function letterLogic(letterSelection){
     letterCounter++;
 }
 
-function generateClue() {
+function generateClue() {   
     let clueText = todaysWord['clue'];    
     $('#clueText').html(`${clueText}`);
-
-    let clueBook = todaysWord['clueBook'];
-    if (clueBook != 'N/A') {
-        $('#clueText').append(`<br><br><b>Specific Book Clue:</b> ${clueBook}`);
-    }
     
     $('#clueModal').modal('toggle');
+    clueUsed = true;
     return;
 }
 
@@ -155,4 +151,60 @@ function displayWinModal() {
     $('#winModalHeader').html(todaysWord['word']);
     $('#scriptureBook').html(`<a target="_blank" id="scriptureBookRef" class="blurBox" href='${todaysWord['link']}'><u>${todaysWord['scriptureRef']}</u></a>`);
     $('#scriptureText').html(`${todaysWord['scripture']} <a id="readMoreLink" target="_blank" href='${todaysWord['link']}'>Read Chapter...</a>`);
+
+    $("#submitBookGuess").click(function(){
+        loadAdditionalSections();
+    });
+
+    $("#unsureBookGuess").click(function(){
+        loadAdditionalSections();        
+    });
+
 };
+
+function loadAdditionalSections() {
+    $('#scriptureBook').slideDown("normal");
+
+    // Add styling to book select menu.  
+    $('#submitBookGuess').hide();
+    $('#unsureBookGuess').hide();
+    
+    let userBookGuess = $('#bookSelect').val();        
+    let scripturePoint = false;
+    if (userBookGuess == todaysWord['scriptureBook']) {
+        $('#correctBookGuess').show();
+        scripturePoint = true;
+    } else {
+        $('#wrongBookGuess').show();
+    }
+
+    // Load the Score Section
+    calculateScore(scripturePoint);
+    $('#userScore').html(userScore);
+    $('#wordGuesses').html(wordScore);
+    scripturePoint === false ? $('#scriptureGuess').html(0) : $('#scriptureGuess').html(1);
+    clueUsed === true ? $('#clueUsed').html('Yes') : $('#clueUsed').html('No');
+    $('#scoreSection').slideDown("normal");
+    
+    // Load the Question Section
+    setTimeout(function(){
+        $('#questionSection').slideDown("normal");
+    }, 2500);
+}
+
+function calculateScore(scripturePoint) {
+    // Set Temp Score (score calculates from second guess)
+    userScore = (7 - wordCounter);
+    if (userScore === 6) {
+        userScore = 5; 
+    } 
+
+    wordScore = userScore;
+
+    scripturePoint === true ? userScore++ : '';
+
+    if (userScore === 0) {
+        userScore = 1; 
+    } 
+    
+}

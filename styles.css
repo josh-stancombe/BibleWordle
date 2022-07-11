@@ -177,7 +177,7 @@ body {
     font-weight: bold;
     text-align: center;
     font-size: larger;
-    background-color: #69ab63b8;
+    /* background-color: #69ab63b8; */
 }
 
 #scriptureBook {
@@ -193,6 +193,9 @@ body {
 
 #scriptureText {
     margin-bottom: 15px;
+    font-size: smaller;
+    font-style: italic;
+    text-align: center;
 }
 
 #readMoreLink {
@@ -202,13 +205,27 @@ body {
 
 #bookSelectContainer {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-evenly;
     margin-bottom: 15px;
 }
 
 #bookSelect {
     flex-grow: 1;
+    margin-left: 5px;
+}
+
+#correctBookGuess, #wrongBookGuess {
+    display: none;
+    font-size: larger;
+}
+
+#correctBookGuess {
+    color: #69ab63;
+}
+
+#wrongBookGuess {
+    color: #a94442;
 }
 
 .separator {
@@ -235,6 +252,11 @@ body {
 #scoreSection, #questionSection {
     display: none;
 }
+
+
+
+
+
 
 #greenText {
     color: #69ab63;
