@@ -17,8 +17,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script type="module" src='script.js'></script>
-    
-    <title>The Word(le)</title>
+
+    <title>Bible-Wordle</title>
 
 </head>
 
@@ -309,8 +309,8 @@
                                 </select>
                             </div>
                             <div>
-                                <button type="button" class="btn btn-success" id="submitBookGuess">Go</button>
-                                <button type="button" class="btn btn-basic" id="unsureBookGuess">X</button>
+                                <button type="button" class="btn btn-success btn-sm" id="submitBookGuess">Go</button>
+                                <button type="button" class="btn btn-warning btn-sm" id="unsureBookGuess">X</button>
                                 <i id='correctBookGuess' class="fa-solid fa-circle-check"></i>
                                 <i id="wrongBookGuess" class="fa-solid fa-circle-xmark"></i>
                                 
@@ -321,18 +321,16 @@
                     <div id="scoreSection">
                         <div class="separator">
                             <div class="line"></div>
-                            <p>Your Score</p>
+                            <p>Score</p>
                             <div class="line"></div>
                         </div>
                         
-                        <div>
-                            <p>Your score is: <span id="userScore"></span></p>
-                            <p>Word Guess: <span id="wordGuesses"></span>pts.<br> Scripture Guess: <span id="scriptureGuess"></span>pts.<br> Clue Used: <span id="clueUsed"></span></p>
+                        <div id="scoreDiv">
+                            <p id="scoreTotal">Your Score: <span id="userScore"></span></p>
+                            <p id="scoreWorkings">Word Guess: <span id="wordGuesses"></span>pts | Scripture Guess: <span id="scriptureGuess"></span>pts | Clue Used: <span id="clueUsed"><span></p>
                         </div>
                         
                         <div class="centerText">
-                            <span>Have you beat your family & friends?</span>
-                            <br>
                             <button type="button" class="btn btn-succeed">Share <i class="fa-solid fa-share-nodes"></i></button>
                         </div>
                         <br>

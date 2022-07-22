@@ -12,7 +12,7 @@ let wordScore = 0;
 let clueUsed = false;
 
 $(document).ready(function(){
-    
+   
     // Physical Keyboard Logic
     document.addEventListener('keydown', (e) => {
         if (e.keyCode >= 65 && e.keyCode <= 90) { 
@@ -150,7 +150,7 @@ function displayWinModal() {
     $('#winModal').modal('toggle');
     $('#winModalHeader').html(todaysWord['word']);
     $('#scriptureBook').html(`<a target="_blank" id="scriptureBookRef" class="blurBox" href='${todaysWord['link']}'><u>${todaysWord['scriptureRef']}</u></a>`);
-    $('#scriptureText').html(`${todaysWord['scripture']} <a id="readMoreLink" target="_blank" href='${todaysWord['link']}'>Read Chapter...</a>`);
+    $('#scriptureText').html(`${todaysWord['scripture']} <br><a id="readMoreLink" target="_blank" href='${todaysWord['link']}'>Read Chapter...</a>`);
 
     $("#submitBookGuess").click(function(){
         loadAdditionalSections();
@@ -164,6 +164,7 @@ function displayWinModal() {
 
 function loadAdditionalSections() {
     $('#scriptureBook').slideDown("normal");
+    $('#readMoreLink').slideDown("normal");    
 
     // Add styling to book select menu.  
     $('#submitBookGuess').hide();
