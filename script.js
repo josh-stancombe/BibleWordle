@@ -1,4 +1,3 @@
-
 import { todaysWord } from './assets/bibleWords.mjs';
 import { validWords } from './assets/validWords.mjs';
 
@@ -11,8 +10,11 @@ let userScore = 0;
 let wordScore = 0;
 let clueUsed = false;
 
+let gameOver = false;
+$('#showWord').html(todaysWord['word'].toUpperCase());
+
 $(document).ready(function(){
-   
+
     // Physical Keyboard Logic
     document.addEventListener('keydown', (e) => {
         if (e.keyCode >= 65 && e.keyCode <= 90) { 
@@ -88,16 +90,30 @@ function evaluateUserWord() {
         userWordGuess = userWordGuess.replace(`${userLetterGuess}`,`_`)
     }
 
-    // If guess is correct...
+    // Calculate guess is correct...
     if (guessedWord === correctWord) {       
-        // Show Win Modal
+        
+        // Show Summary Modal
         setTimeout(function(){
-            displayWinModal()
+            displaySummaryModal('win')
         }, 3000);
+
     } else {
+        
         // Display Clue button if User is on 4th or more go.
         if (wordCounter === 3) {
             $('#clueButton').delay(2500).fadeIn(1000);
+        }
+
+        // If game is lost, show word and show summary modal.
+        if (wordCounter === 5) {
+            
+            $('#clueButton').delay(2000).fadeOut(500);
+            $('#showWord').delay(2500).fadeIn(500);
+                
+            setTimeout(function(){
+                displaySummaryModal('lose');
+            }, 4500);
         }
     }
 }
@@ -127,6 +143,11 @@ function keyboardAddClass(i, letter, className){
 }
 
 function letterLogic(letterSelection){
+    
+    if (gameOver === true){
+        return;
+    }
+    
     let currentLetter = `word${wordCounter}Letter${letterCounter}`;
 
     if (letterCounter > 4) {
@@ -146,7 +167,10 @@ function generateClue() {
     return;
 }
 
-function displayWinModal() {
+function displaySummaryModal(gameStatus) {
+
+    gameOver = true;
+
     $('#winModal').modal('toggle');
     $('#winModalHeader').html(todaysWord['word']);
     $('#scriptureBook').html(`<a target="_blank" id="scriptureBookRef" class="blurBox" href='${todaysWord['link']}'><u>${todaysWord['scriptureRef']}</u></a>`);
@@ -187,10 +211,23 @@ function loadAdditionalSections() {
     clueUsed === true ? $('#clueUsed').html('Yes') : $('#clueUsed').html('No');
     $('#scoreSection').slideDown("normal");
     
+    // Load Share Results       
+    $('#shareResults').click(function(){
+        copyToClipboardText(userScore, wordScore, scripturePoint, clueUsed)
+    });
+    
+    var copyToClipboardText = function(userScore, wordScore, scripturePoint, clueUsed) {
+        const text = `Bible Wordle - ${new Date().toLocaleDateString()} <br><br>Total Score: ${userScore} <br><br>Word guess: ${wordScore}pts <br>Scripture: ${scripturePoint == true ? '1' : '0'}pt <br>${clueUsed == true ? 'Clue Used: -1pt <br>' : ''}<br> <a href='http://www.bible-wordle.com'>www.bible-wordle.com</a>`;
+        
+        copyFormatted(text);
+    }
+
     // Load the Question Section
     setTimeout(function(){
         $('#questionSection').slideDown("normal");
     }, 2500);
+
+    sendEmail();
 }
 
 function calculateScore(scripturePoint) {
@@ -203,9 +240,35 @@ function calculateScore(scripturePoint) {
     wordScore = userScore;
 
     scripturePoint === true ? userScore++ : '';
+    clueUsed === true  ? userScore-- : '';
 
     if (userScore === 0) {
         userScore = 1; 
     } 
     
 }
+
+function copyFormatted (html) {
+    var container = document.createElement('div')
+    container.innerHTML = html
+  
+    container.style.position = 'fixed'
+    container.style.pointerEvents = 'none'
+    container.style.opacity = 0
+  
+    var activeSheets = Array.prototype.slice.call(document.styleSheets)
+      .filter(function (sheet) {
+        return !sheet.disabled
+    })
+  
+    document.body.appendChild(container)
+    window.getSelection().removeAllRanges()
+    var range = document.createRange()
+    range.selectNode(container)
+    window.getSelection().addRange(range)
+    document.execCommand('copy')
+    for (var i = 0; i < activeSheets.length; i++) activeSheets[i].disabled = true
+    document.execCommand('copy')
+    for (var i = 0; i < activeSheets.length; i++) activeSheets[i].disabled = false
+    document.body.removeChild(container)
+  }

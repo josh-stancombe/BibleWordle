@@ -6,6 +6,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <meta name="description" content="Bible-Wordle: Play the daily bible-themed word game!">
+    <meta name="keywords" content="Bible, Wordle, Christian, Game, ">
+    <meta name="author" content="Bible Wordle">
     
     <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
@@ -18,6 +21,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script type="module" src='script.js'></script>
 
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.png">
     <title>Bible-Wordle</title>
 
 </head>
@@ -25,7 +29,7 @@
 <body>       
     <div id="mainContainer">
         <div id="logoContainer">
-            <img id="logo" src="assets/logo.png">
+            <img id="logo" src="assets/logo.png" alt="Bible Wordle Logo">
             <i id="infoButton" class="fa-solid fa-circle-info" data-toggle="modal" data-target="#aboutModal"></i>
         </div>
 
@@ -92,6 +96,12 @@
                     Generate Clue
                 </div>
             </div>
+
+            <!-- Show Word if lose -->
+            <div class="wordGuess">
+                <div id="showWord" hidden></div>
+            </div>
+
         </div>
 
         <!-- Keyboard Container -->
@@ -144,12 +154,12 @@
         <div class="modal-dialog modal-lg aboutModal" role="document">
           <div class="modal-content">
             <div id="aboutModalHeader" class="modal-header">
-              <h3 id="aboutModalTitle"class="modal-title">The Word(le)</h3>
+              <h3 id="aboutModalTitle"class="modal-title">Bible-Wordle</h3>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
+            <div id="infoModalBody" class="modal-body">
                 <p>
                     Guess the daily Bible-Themed Word in Six Tries!<br>
                     <br>
@@ -159,9 +169,11 @@
                     - A <span id="orangeText">Orange</span> tile means the letter is in the word, but in the wrong place.<br>
                     - A <span id="greyText">Grey</span> tile means the letter is not in the word.<br>
                     <br>
-                    Your score starts at 5, and reduces for every incorrect guess (after the first guess). An additional point is awarded for guessing the correct scripture book. <br>
+                    Your score starts at 5, and reduces for every incorrect guess (after the second guess). An additional point is awarded for guessing the correct scripture book. <br>
                     <br>
-                    A clue will be offered after 5 unsuccessful attempts (-1 point).
+                    A clue will be offered after 5 unsuccessful attempts (-1 point).<br>
+                    <br>
+                    <span id="contactInfo"><i>Suggestions & Contact: <a href="mailto:info@bible-wordle.com">info@bible-wordle.com</a></i></span>
                 </p>
             </div>
             <div id="aboutModalClose" class="modal-footer">
@@ -327,12 +339,21 @@
                         
                         <div id="scoreDiv">
                             <p id="scoreTotal">Your Score: <span id="userScore"></span></p>
-                            <p id="scoreWorkings">Word Guess: <span id="wordGuesses"></span>pts | Scripture Guess: <span id="scriptureGuess"></span>pts | Clue Used: <span id="clueUsed"><span></p>
+                            <div id="scoreDetails">
+                                <div id="scoreWorkings">
+                                    Word: <span id="wordGuesses"></span>pts <br>
+                                    Scripture: <span id="scriptureGuess"></span>pts <br>
+                                    Clue Used: <span id="clueUsed"><span>
+                                </div>
+                                <div class="verticalBreak"></div>
+                                <div class="centerText">
+                                    <textarea type="text" value="" id="shareResultsText" hidden></textarea>
+                                    <button type="button" id="shareResults" class="btn btn-succeed">Share <i class="fa-solid fa-share-nodes"></i></button>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div class="centerText">
-                            <button type="button" class="btn btn-succeed">Share <i class="fa-solid fa-share-nodes"></i></button>
-                        </div>
+                        
                         <br>
                     </div>
 
@@ -347,7 +368,7 @@
                     </div>
                 </div>
                 <div id="winModalClose" class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Finish</button>
                 </div>
             </div>
         </div>

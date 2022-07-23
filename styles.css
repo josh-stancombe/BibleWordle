@@ -164,6 +164,10 @@ body {
     font-size: large;
 }
 
+.modal-body {
+    padding-top: 5px;
+} 
+
 .modal-footer, .infoText #clueText {
     text-align: center !important;
     margin: 0px;
@@ -187,12 +191,8 @@ body {
     display: none;
 }
 
-#scriptureBook a {
-    color: darkblue;
-}
-
 #scriptureText {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-size: smaller;
     font-style: italic;
     text-align: center;
@@ -268,11 +268,35 @@ body {
     margin-bottom: 20px;
 }
 
-#questionSection {
+#scoreDetails {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.verticalBreak {
+    border-left: solid #6e6e6e 1px;
+    height: 60px;
+}
+
+#questionSection, #infoModalBody {
+    font-size: smaller;
+}
+
+#contactInfo {
     font-size: smaller;
 }
 
 
+#showWord {
+    width: 120px;
+    background-color: #474747;
+    color: #fff;
+    border-radius: 6px;
+    text-align: center;
+    font-size: medium;
+    margin-top: 15px;
+}
 
 #greenText {
     color: #69ab63;
