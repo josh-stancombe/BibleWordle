@@ -1,5 +1,5 @@
-import { todaysWord } from './assets/bibleWords.mjs';
-import { validWords } from './assets/validWords.mjs';
+import { todaysWord } from './assets/bibleWords.js';
+import { validWords } from './assets/validWords.js';
 
 // - Word and Letter counters are 0 indexed.
 let correctWord = todaysWord['word'].toLowerCase();
@@ -10,7 +10,11 @@ let userScore = 0;
 let wordScore = 0;
 let clueUsed = false;
 
+let guessInfo = [];
 let gameOver = false;
+
+let userInfo = {};
+
 $('#showWord').html(todaysWord['word'].toUpperCase());
 
 $(document).ready(function(){
@@ -41,6 +45,11 @@ $(document).ready(function(){
     $("#clueButton").click(function(){
         generateClue();
     });
+
+    // Get IP Address Info
+    $.getJSON("https://ipgeolocation.abstractapi.com/v1/?api_key=88d4c83993814807a2b6c4f95355cd26", function(data) {
+        userInfo = data;
+    })
 
 });
 
@@ -91,15 +100,21 @@ function evaluateUserWord() {
     }
 
     // Calculate guess is correct...
-    if (guessedWord === correctWord) {       
+    if (guessedWord === correctWord) { 
         
+        // Push to guessInfo array
+        guessInfo.push([wordCounter, guessedWord]);
+
         // Show Summary Modal
         setTimeout(function(){
-            displaySummaryModal('win')
+            summaryModal();
         }, 3000);
 
     } else {
         
+        // Push to guessInfo array
+        guessInfo.push([wordCounter, guessedWord]);
+
         // Display Clue button if User is on 4th or more go.
         if (wordCounter === 3) {
             $('#clueButton').delay(2500).fadeIn(1000);
@@ -112,7 +127,7 @@ function evaluateUserWord() {
             $('#showWord').delay(2500).fadeIn(500);
                 
             setTimeout(function(){
-                displaySummaryModal('lose');
+                summaryModal();
             }, 4500);
         }
     }
@@ -138,7 +153,17 @@ function addTileClass (i, className) {
 
 function keyboardAddClass(i, letter, className){
     setTimeout(function() {
+       
+        // Do not overwite keyboard class to 'wrongLetter' if letter already has existing class. 
+        const existingClasses = document.getElementById(`letterKey${letter}`).className.split(/\s+/);
+        if (existingClasses.includes('letterInWord') || existingClasses.includes('correctLetter')) {
+            if (className === 'wrongLetter') {
+                return;
+            };
+        }
+
         document.getElementById(`letterKey${letter}`).classList.add(className);
+
     }, i*500);
 }
 
@@ -167,7 +192,10 @@ function generateClue() {
     return;
 }
 
-function displaySummaryModal(gameStatus) {
+function summaryModal() {
+
+    // Display the summary modal button on main screen
+    $('#openWinModalBtn').slideDown("normal");
 
     gameOver = true;
 
@@ -203,21 +231,29 @@ function loadAdditionalSections() {
         $('#wrongBookGuess').show();
     }
 
-    // Load the Score Section
+    // Calculate Score and Send Results
     calculateScore(scripturePoint);
+    sendResults();
+
+    // Load the Score Section
     $('#userScore').html(userScore);
     $('#wordGuesses').html(wordScore);
     scripturePoint === false ? $('#scriptureGuess').html(0) : $('#scriptureGuess').html(1);
-    clueUsed === true ? $('#clueUsed').html('Yes') : $('#clueUsed').html('No');
+    clueUsed === true ? $('#clueUsed').html('-1pt') : $('#clueUsed').html('No');
     $('#scoreSection').slideDown("normal");
     
     // Load Share Results       
     $('#shareResults').click(function(){
-        copyToClipboardText(userScore, wordScore, scripturePoint, clueUsed)
+        copyToClipboardText(userScore, wordScore, scripturePoint, clueUsed);
+        $('#shareResults').tooltip('show');
+        
+        setTimeout(function(){
+            $('#shareResults').tooltip('hide');
+        },2000);
     });
     
     var copyToClipboardText = function(userScore, wordScore, scripturePoint, clueUsed) {
-        const text = `Bible Wordle - ${new Date().toLocaleDateString()} <br><br>Total Score: ${userScore} <br><br>Word guess: ${wordScore}pts <br>Scripture: ${scripturePoint == true ? '1' : '0'}pt <br>${clueUsed == true ? 'Clue Used: -1pt <br>' : ''}<br> <a href='http://www.bible-wordle.com'>www.bible-wordle.com</a>`;
+        const text = `Bible Wordle - ${new Date().toLocaleDateString()} <br><br>Total Score: ${userScore} <br><br>Word guess: ${wordScore}pts <br>Scripture: ${scripturePoint == true ? '1' : '0'}pt <br>${clueUsed == true ? 'Clue Used: -1pt <br>' : ''}<br> <a href='https://www.bible-wordle.com'>https://www.bible-wordle.com</a>`;
         
         copyFormatted(text);
     }
@@ -225,9 +261,9 @@ function loadAdditionalSections() {
     // Load the Question Section
     setTimeout(function(){
         $('#questionSection').slideDown("normal");
+        $('#winModalClose').slideDown("normal");
     }, 2500);
 
-    sendEmail();
 }
 
 function calculateScore(scripturePoint) {
@@ -271,4 +307,15 @@ function copyFormatted (html) {
     document.execCommand('copy')
     for (var i = 0; i < activeSheets.length; i++) activeSheets[i].disabled = false
     document.body.removeChild(container)
-  }
+}
+
+function sendResults() {
+    $.post("index.php", {
+        userInfo: userInfo,
+        guessInfo: guessInfo,
+        score: userScore,
+        correctWord: correctWord
+    }, function(data, status){
+      alert("Data: " + data + "\nStatus: " + status);
+    });
+}

@@ -45,7 +45,17 @@ body {
     top: 15px;
     right: 15px;
     position: absolute;
-    color: #000000B8
+    color: #000000B8;
+}
+
+#openWinModalBtn {
+    font-size: x-large;
+    cursor: pointer;
+    top: 15px;
+    right: 50px;
+    position: absolute;
+    color: #000000B8;
+    display: none;
 }
 
 #clueButton {

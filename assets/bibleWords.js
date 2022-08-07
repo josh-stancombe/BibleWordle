@@ -125,10 +125,10 @@ let bibleWords = [
 // Calculate Todays Number
 
 const todaysDate = new Date();
-const gameStartDate = new Date("July 23, 2022 00:00:01");
+const gameStartDate = new Date("July 21, 2022");
 
 const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-const todaysNum = Math.round(Math.abs((gameStartDate - todaysDate) / oneDay));
+const todaysNum = Math.floor(Math.abs((gameStartDate - todaysDate) / oneDay));
 
 // Return Corresponding Word Array
 export let todaysWord = bibleWords[todaysNum];

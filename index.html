@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
-    <meta name="description" content="Bible-Wordle: Play the daily bible-themed word game!">
-    <meta name="keywords" content="Bible, Wordle, Christian, Game, ">
+    <meta name="description" content="Bible-Wordle: Play the daily Bible-themed word game!">
+    <meta name="keywords" content="Bible Wordle, Christian WOrdle, Bible, Wordle, Christian, Bible Game. Christian Game">
     <meta name="author" content="Bible Wordle">
     
     <!-- CSS -->
@@ -30,6 +30,7 @@
     <div id="mainContainer">
         <div id="logoContainer">
             <img id="logo" src="assets/logo.png" alt="Bible Wordle Logo">
+            <i id="openWinModalBtn" class="fa-solid fa-square-poll-vertical" data-toggle="modal" data-target="#winModal"></i>
             <i id="infoButton" class="fa-solid fa-circle-info" data-toggle="modal" data-target="#aboutModal"></i>
         </div>
 
@@ -171,7 +172,7 @@
                     <br>
                     Your score starts at 5, and reduces for every incorrect guess (after the second guess). An additional point is awarded for guessing the correct scripture book. <br>
                     <br>
-                    A clue will be offered after 5 unsuccessful attempts (-1 point).<br>
+                    A clue will be offered after 4 unsuccessful attempts (-1 point).<br>
                     <br>
                     <span id="contactInfo"><i>Suggestions & Contact: <a href="mailto:info@bible-wordle.com">info@bible-wordle.com</a></i></span>
                 </p>
@@ -348,7 +349,7 @@
                                 <div class="verticalBreak"></div>
                                 <div class="centerText">
                                     <textarea type="text" value="" id="shareResultsText" hidden></textarea>
-                                    <button type="button" id="shareResults" class="btn btn-succeed">Share <i class="fa-solid fa-share-nodes"></i></button>
+                                    <button type="button" id="shareResults" class="btn btn-succeed"  data-toggle="tooltip" data-placement="top" title="Results copied to clipboard!">Share <i class="fa-solid fa-share-nodes"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -367,7 +368,7 @@
                         <div class="centerText">A new Bible Word will be available tomorrow! </div>
                     </div>
                 </div>
-                <div id="winModalClose" class="modal-footer">
+                <div id="winModalClose" hidden class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Finish</button>
                 </div>
             </div>
