@@ -5,6 +5,7 @@ import { validWords } from './assets/validWords.js';
 let correctWord = todaysWord['word'].toLowerCase();
 let wordCounter = 0;
 let letterCounter = 0;
+let scripturePoint = false;
 
 let userScore = 0;
 let wordScore = 0;
@@ -99,21 +100,18 @@ function evaluateUserWord() {
         userWordGuess = userWordGuess.replace(`${userLetterGuess}`,`_`)
     }
 
+    // Push to guessInfo array
+    guessInfo.push(guessedWord);
+
     // Calculate guess is correct...
     if (guessedWord === correctWord) { 
         
-        // Push to guessInfo array
-        guessInfo.push([wordCounter, guessedWord]);
-
         // Show Summary Modal
         setTimeout(function(){
             summaryModal();
         }, 3000);
 
     } else {
-        
-        // Push to guessInfo array
-        guessInfo.push([wordCounter, guessedWord]);
 
         // Display Clue button if User is on 4th or more go.
         if (wordCounter === 3) {
@@ -222,8 +220,7 @@ function loadAdditionalSections() {
     $('#submitBookGuess').hide();
     $('#unsureBookGuess').hide();
     
-    let userBookGuess = $('#bookSelect').val();        
-    let scripturePoint = false;
+    let userBookGuess = $('#bookSelect').val();            
     if (userBookGuess == todaysWord['scriptureBook']) {
         $('#correctBookGuess').show();
         scripturePoint = true;
@@ -310,12 +307,12 @@ function copyFormatted (html) {
 }
 
 function sendResults() {
-    $.post("index.php", {
+    $.post("guesses.php", {
         userInfo: userInfo,
         guessInfo: guessInfo,
         score: userScore,
-        correctWord: correctWord
-    }, function(data, status){
-      alert("Data: " + data + "\nStatus: " + status);
+        correctWord: correctWord,        
+        scriptureGuess: (scripturePoint === true ? 'Yes' : 'No'),
+        clueUsed: (clueUsed === true ? 'Yes' : 'No')
     });
 }
