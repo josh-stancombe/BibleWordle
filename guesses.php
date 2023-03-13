@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 $today = new DateTime();
 $date = $today->format("d-m-Y");
 $time = $today->format("H:i:s");
-$userInfo = $_POST['userInfo']['city'] . ' - ' . $_POST['userInfo']['country'];
+$userInfo = $_POST['userInfo']['city'] . ' - ' . $_POST['userInfo']['country_name'];
 $ipAddress = $_POST['userInfo']['ip_address'];
 $guessInfo = $_POST['guessInfo'];
 $score = $_POST['score'];
