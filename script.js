@@ -48,7 +48,7 @@ $(document).ready(function(){
     });
 
     // Get IP Address Info
-    $.getJSON("https://ipgeolocation.abstractapi.com/v1/?api_key=88d4c83993814807a2b6c4f95355cd26", function(data) {
+    $.getJSON("https://api.ipgeolocation.io/ipgeo?apiKey=ea5591be6fda4a97a8ffe403d0504303", function(data) {        
         userInfo = data;
     })
 

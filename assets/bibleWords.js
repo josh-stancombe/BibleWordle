@@ -125,7 +125,7 @@ let bibleWords = [
 // Calculate Todays Number
 
 const todaysDate = new Date();
-const gameStartDate = new Date("July 21, 2022");
+const gameStartDate = new Date("March 13, 2023");
 
 const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 const todaysNum = Math.floor(Math.abs((gameStartDate - todaysDate) / oneDay));
