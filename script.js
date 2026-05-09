@@ -1,8 +1,7 @@
-import { todaysWord } from './assets/bibleWords.js';
 import { validWords } from './assets/validWords.js';
 
-// - Word and Letter counters are 0 indexed.
-let correctWord = todaysWord['word'].toLowerCase();
+let todaysWord = null;
+let correctWord = '';
 let wordCounter = 0;
 let letterCounter = 0;
 let scripturePoint = false;
@@ -16,24 +15,35 @@ let gameOver = false;
 
 let userInfo = {};
 
-$('#showWord').html(todaysWord['word'].toUpperCase());
+$(document).ready(async function(){
 
-$(document).ready(function(){
+    // Load today's word from the server
+    try {
+        const response = await fetch('word.php');
+        if (!response.ok) throw new Error('Failed to fetch word');
+        todaysWord = await response.json();
+    } catch(e) {
+        console.error('Could not load today\'s word:', e);
+        return;
+    }
+
+    correctWord = todaysWord['word'].toLowerCase();
+    $('#showWord').html(todaysWord['word'].toUpperCase());
 
     // Physical Keyboard Logic
     document.addEventListener('keydown', (e) => {
-        if (e.keyCode >= 65 && e.keyCode <= 90) { 
+        if (e.keyCode >= 65 && e.keyCode <= 90) {
            letterLogic(e.key.toUpperCase());
         } else if (e.keyCode === 13) {
             evaluateUserWord();
         } else if (e.keyCode === 8) {
             removeLetter();
-        }         
+        }
     });
 
     // On-Screen Keyboard Logic
-    $(".keyboardLetter").click(function(){ 
-        letterLogic(this.innerHTML); 
+    $(".keyboardLetter").click(function(){
+        letterLogic(this.innerHTML);
     });
     $("#letterKeyEnter").click(function(){
         evaluateUserWord();
@@ -48,7 +58,7 @@ $(document).ready(function(){
     });
 
     // Get IP Address Info
-    $.getJSON("https://api.ipgeolocation.io/ipgeo?apiKey=ea5591be6fda4a97a8ffe403d0504303", function(data) {        
+    $.getJSON("https://api.ipgeolocation.io/ipgeo?apiKey=ea5591be6fda4a97a8ffe403d0504303", function(data) {
         userInfo = data;
     })
 
@@ -57,7 +67,7 @@ $(document).ready(function(){
 function evaluateUserWord() {
 
     if (letterCounter != 5) {
-        $('#invalidLengthModal').modal('toggle');       
+        $('#invalidLengthModal').modal('toggle');
         return;
     }
 
@@ -91,10 +101,10 @@ function evaluateUserWord() {
             correctWordRemainingLetters = correctWordRemainingLetters.replace(`${userLetterGuess}`,`_`);
         } else {
             className = 'wrongLetter';
-        }        
-       
+        }
+
         // Add tile styling and increment letter / word counters.
-        addTileClass(i, className);        
+        addTileClass(i, className);
         keyboardAddClass(i, userLetterGuess.toUpperCase(), className);
 
         userWordGuess = userWordGuess.replace(`${userLetterGuess}`,`_`)
@@ -104,8 +114,8 @@ function evaluateUserWord() {
     guessInfo.push(guessedWord);
 
     // Calculate guess is correct...
-    if (guessedWord === correctWord) { 
-        
+    if (guessedWord === correctWord) {
+
         // Show Summary Modal
         setTimeout(function(){
             summaryModal();
@@ -120,10 +130,10 @@ function evaluateUserWord() {
 
         // If game is lost, show word and show summary modal.
         if (wordCounter === 5) {
-            
+
             $('#clueButton').delay(2000).fadeOut(500);
             $('#showWord').delay(2500).fadeIn(500);
-                
+
             setTimeout(function(){
                 summaryModal();
             }, 4500);
@@ -145,14 +155,14 @@ function addTileClass (i, className) {
         if (i === 4) {
             wordCounter++;
             letterCounter = 0;
-        } 
+        }
     }, i*500);
 }
 
 function keyboardAddClass(i, letter, className){
     setTimeout(function() {
-       
-        // Do not overwite keyboard class to 'wrongLetter' if letter already has existing class. 
+
+        // Do not overwite keyboard class to 'wrongLetter' if letter already has existing class.
         const existingClasses = document.getElementById(`letterKey${letter}`).className.split(/\s+/);
         if (existingClasses.includes('letterInWord') || existingClasses.includes('correctLetter')) {
             if (className === 'wrongLetter') {
@@ -166,11 +176,11 @@ function keyboardAddClass(i, letter, className){
 }
 
 function letterLogic(letterSelection){
-    
+
     if (gameOver === true){
         return;
     }
-    
+
     let currentLetter = `word${wordCounter}Letter${letterCounter}`;
 
     if (letterCounter > 4) {
@@ -181,10 +191,10 @@ function letterLogic(letterSelection){
     letterCounter++;
 }
 
-function generateClue() {   
-    let clueText = todaysWord['clue'];    
+function generateClue() {
+    let clueText = todaysWord['clue'];
     $('#clueText').html(`${clueText}`);
-    
+
     $('#clueModal').modal('toggle');
     clueUsed = true;
     return;
@@ -207,20 +217,20 @@ function summaryModal() {
     });
 
     $("#unsureBookGuess").click(function(){
-        loadAdditionalSections();        
+        loadAdditionalSections();
     });
 
 };
 
 function loadAdditionalSections() {
     $('#scriptureBook').slideDown("normal");
-    $('#readMoreLink').slideDown("normal");    
+    $('#readMoreLink').slideDown("normal");
 
-    // Add styling to book select menu.  
+    // Add styling to book select menu.
     $('#submitBookGuess').hide();
     $('#unsureBookGuess').hide();
-    
-    let userBookGuess = $('#bookSelect').val();            
+
+    let userBookGuess = $('#bookSelect').val();
     if (userBookGuess == todaysWord['scriptureBook']) {
         $('#correctBookGuess').show();
         scripturePoint = true;
@@ -238,20 +248,20 @@ function loadAdditionalSections() {
     scripturePoint === false ? $('#scriptureGuess').html(0) : $('#scriptureGuess').html(1);
     clueUsed === true ? $('#clueUsed').html('-1pt') : $('#clueUsed').html('No');
     $('#scoreSection').slideDown("normal");
-    
-    // Load Share Results       
+
+    // Load Share Results
     $('#shareResults').click(function(){
         copyToClipboardText(userScore, wordScore, scripturePoint, clueUsed);
         $('#shareResults').tooltip('show');
-        
+
         setTimeout(function(){
             $('#shareResults').tooltip('hide');
         },2000);
     });
-    
+
     var copyToClipboardText = function(userScore, wordScore, scripturePoint, clueUsed) {
         const text = `Bible Wordle - ${new Date().toLocaleDateString()} <br><br>Total Score: ${userScore} <br><br>Word guess: ${wordScore}pts <br>Scripture: ${scripturePoint == true ? '1' : '0'}pt <br>${clueUsed == true ? 'Clue Used: -1pt <br>' : ''}<br> <a href='https://www.bible-wordle.com'>https://www.bible-wordle.com</a>`;
-        
+
         copyFormatted(text);
     }
 
@@ -267,8 +277,8 @@ function calculateScore(scripturePoint) {
     // Set Temp Score (score calculates from second guess)
     userScore = (7 - wordCounter);
     if (userScore === 6) {
-        userScore = 5; 
-    } 
+        userScore = 5;
+    }
 
     wordScore = userScore;
 
@@ -276,24 +286,24 @@ function calculateScore(scripturePoint) {
     clueUsed === true  ? userScore-- : '';
 
     if (userScore === 0) {
-        userScore = 1; 
-    } 
-    
+        userScore = 1;
+    }
+
 }
 
 function copyFormatted (html) {
     var container = document.createElement('div')
     container.innerHTML = html
-  
+
     container.style.position = 'fixed'
     container.style.pointerEvents = 'none'
     container.style.opacity = 0
-  
+
     var activeSheets = Array.prototype.slice.call(document.styleSheets)
       .filter(function (sheet) {
         return !sheet.disabled
     })
-  
+
     document.body.appendChild(container)
     window.getSelection().removeAllRanges()
     var range = document.createRange()
@@ -311,7 +321,7 @@ function sendResults() {
         userInfo: userInfo,
         guessInfo: guessInfo,
         score: userScore,
-        correctWord: correctWord,        
+        correctWord: correctWord,
         scriptureGuess: (scripturePoint === true ? 'Yes' : 'No'),
         clueUsed: (clueUsed === true ? 'Yes' : 'No')
     });

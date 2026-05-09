@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    
+
     <!-- Metadata -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Bible-Wordle: Play the daily Bible-themed word game!">
-    <meta name="keywords" content="Bible Wordle, Christian WOrdle, Bible, Wordle, Christian, Bible Game. Christian Game">
+    <meta name="keywords"
+        content="Bible Wordle, Christian WOrdle, Bible, Wordle, Christian, Bible Game. Christian Game">
     <meta name="author" content="Bible Wordle">
-    
+
     <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type='text/css' href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <link rel="stylesheet" type='text/css'
+        href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -26,17 +30,28 @@
 
 </head>
 
-<body>       
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E8DSC67CG7"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-E8DSC67CG7');
+</script>
+
+<body>
     <div id="mainContainer">
         <div id="logoContainer">
             <img id="logo" src="assets/logo.png" alt="Bible Wordle Logo">
-            <i id="openWinModalBtn" class="fa-solid fa-square-poll-vertical" data-toggle="modal" data-target="#winModal"></i>
+            <i id="openWinModalBtn" class="fa-solid fa-square-poll-vertical" data-toggle="modal"
+                data-target="#winModal"></i>
             <i id="infoButton" class="fa-solid fa-circle-info" data-toggle="modal" data-target="#aboutModal"></i>
         </div>
 
         <!-- Guess Row Container -->
         <div id="wordsContainer">
-            
+
             <!-- Guess Row 1 -->
             <div class="wordGuess">
                 <div class="letterBox" id="word0Letter0"></div>
@@ -153,34 +168,38 @@
     <!-- Info Modal -->
     <div id="aboutModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg aboutModal" role="document">
-          <div class="modal-content">
-            <div id="aboutModalHeader" class="modal-header">
-              <h3 id="aboutModalTitle"class="modal-title">Bible-Wordle</h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+            <div class="modal-content">
+                <div id="aboutModalHeader" class="modal-header">
+                    <h3 id="aboutModalTitle" class="modal-title">Bible-Wordle</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="infoModalBody" class="modal-body">
+                    <p>
+                        Guess the daily Bible-Themed Word in Six Tries!<br>
+                        <br>
+                        After each guess, the color of the tiles will change to show how close your guess was to the
+                        word.<br>
+                        <br>
+                        - A <span id="greenText">Green</span> tile means the letter is in the correct place.<br>
+                        - A <span id="orangeText">Orange</span> tile means the letter is in the word, but in the wrong
+                        place.<br>
+                        - A <span id="greyText">Grey</span> tile means the letter is not in the word.<br>
+                        <br>
+                        Your score starts at 5, and reduces for every incorrect guess (after the second guess). An
+                        additional point is awarded for guessing the correct scripture book. <br>
+                        <br>
+                        A clue will be offered after 4 unsuccessful attempts (-1 point).<br>
+                        <br>
+                        <span id="contactInfo"><i>Suggestions & Contact: <a
+                                    href="mailto:info@bible-wordle.com">info@bible-wordle.com</a></i></span>
+                    </p>
+                </div>
+                <div id="aboutModalClose" class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                </div>
             </div>
-            <div id="infoModalBody" class="modal-body">
-                <p>
-                    Guess the daily Bible-Themed Word in Six Tries!<br>
-                    <br>
-                    After each guess, the color of the tiles will change to show how close your guess was to the word.<br>
-                    <br>
-                    - A <span id="greenText">Green</span> tile means the letter is in the correct place.<br>
-                    - A <span id="orangeText">Orange</span> tile means the letter is in the word, but in the wrong place.<br>
-                    - A <span id="greyText">Grey</span> tile means the letter is not in the word.<br>
-                    <br>
-                    Your score starts at 5, and reduces for every incorrect guess (after the second guess). An additional point is awarded for guessing the correct scripture book. <br>
-                    <br>
-                    A clue will be offered after 4 unsuccessful attempts (-1 point).<br>
-                    <br>
-                    <span id="contactInfo"><i>Suggestions & Contact: <a href="mailto:info@bible-wordle.com">info@bible-wordle.com</a></i></span>
-                </p>
-            </div>
-            <div id="aboutModalClose" class="modal-footer">
-              <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-            </div>
-          </div>
         </div>
     </div>
 
@@ -225,19 +244,19 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Win Modal -->
     <div id="winModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" id="winModalContainer" role="document">
             <div class="modal-content" id="winModalContainer">
                 <div id="winModalHeader" class="modal-header">
-                    <h3 id="winModalTitle"class="modal-title"></h3>
+                    <h3 id="winModalTitle" class="modal-title"></h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
-                  </div>
-                <div class="modal-body"> 
-                    
+                </div>
+                <div class="modal-body">
+
                     <div id="scriptureGuessSection">
                         <div class="separator">
                             <div class="line"></div>
@@ -247,10 +266,10 @@
 
                         <p id="scriptureBook"></p>
                         <p id="scriptureText"></p>
-                        
+
                         <div id="bookSelectContainer">
                             <div>
-                                <label for="bookSelect">Book:  </label>
+                                <label for="bookSelect">Book: </label>
                                 <select type="select" id="bookSelect" name="bookSelect">
                                     <option value="select"><i>Select</i></option>
                                     <option value="Genesis">Genesis</option>
@@ -326,7 +345,7 @@
                                 <button type="button" class="btn btn-warning btn-sm" id="unsureBookGuess">X</button>
                                 <i id='correctBookGuess' class="fa-solid fa-circle-check"></i>
                                 <i id="wrongBookGuess" class="fa-solid fa-circle-xmark"></i>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -337,7 +356,7 @@
                             <p>Score</p>
                             <div class="line"></div>
                         </div>
-                        
+
                         <div id="scoreDiv">
                             <p id="scoreTotal">Your Score: <span id="userScore"></span></p>
                             <div id="scoreDetails">
@@ -349,16 +368,19 @@
                                 <div class="verticalBreak"></div>
                                 <div class="centerText">
                                     <textarea type="text" value="" id="shareResultsText" hidden></textarea>
-                                    <button type="button" id="shareResults" class="btn btn-succeed"  data-toggle="tooltip" data-placement="top" title="Results copied to clipboard!">Share <i class="fa-solid fa-share-nodes"></i></button>
+                                    <button type="button" id="shareResults" class="btn btn-succeed"
+                                        data-toggle="tooltip" data-placement="top"
+                                        title="Results copied to clipboard!">Share <i
+                                            class="fa-solid fa-share-nodes"></i></button>
                                 </div>
                             </div>
                         </div>
-                        
-                        
+
+
                         <br>
                     </div>
 
-                    
+
                     <div id="questionSection">
                         <!-- <div class="separator">
                             <div class="line"></div>
@@ -376,4 +398,5 @@
     </div>
 
 </body>
+
 </html>
