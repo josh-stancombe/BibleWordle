@@ -1,6 +1,15 @@
 <?php
 
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/error.log');
+
 $env = parse_ini_file(__DIR__ . '/.env');
+if ($env === false) {
+    error_log('guesses.php: failed to parse .env');
+    http_response_code(500);
+    exit;
+}
+
 $servername = $env['DB_HOST'];
 $port       = (int) $env['DB_PORT'];
 $username   = $env['DB_USER'];
@@ -10,9 +19,10 @@ $dbname     = $env['DB_NAME'];
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname, $port);
 
-// Check connection
 if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+    error_log('guesses.php: DB connection failed - ' . $conn->connect_error);
+    http_response_code(500);
+    exit;
 }
 
 // Setup database variables
@@ -33,7 +43,7 @@ $sql = '';
 foreach($guessInfo as $attempt => $word) {
 
     $attempt++; // Attempt is 0 indexed
-    
+
     // All Guesses
     $sql .= "INSERT INTO allguesses (date, time, userLocation, ipAddress, word, attempt, correctWord) VALUES ('$date', '$time', '$userInfo', '$ipAddress', '$word', '$attempt', '$correctWord');";
 
@@ -46,9 +56,8 @@ foreach($guessInfo as $attempt => $word) {
 }
 
 if ($conn->multi_query($sql) !== TRUE) {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    error_log('guesses.php: query failed - ' . $conn->error);
+    http_response_code(500);
 }
 
 $conn->close();
-
-?>
