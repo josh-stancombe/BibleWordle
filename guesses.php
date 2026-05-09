@@ -2,12 +2,13 @@
 
 $env = parse_ini_file(__DIR__ . '/.env');
 $servername = $env['DB_HOST'];
+$port       = (int) $env['DB_PORT'];
 $username   = $env['DB_USER'];
 $password   = $env['DB_PASS'];
 $dbname     = $env['DB_NAME'];
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname, $port);
 
 // Check connection
 if ($conn->connect_error) {
