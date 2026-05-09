@@ -15,6 +15,15 @@ let gameOver = false;
 
 let userInfo = {};
 
+function grantConsent() {
+    if (typeof gtag !== 'undefined') {
+        gtag('consent', 'update', { 'analytics_storage': 'granted' });
+    }
+    $.getJSON("https://api.ipgeolocation.io/ipgeo?apiKey=ea5591be6fda4a97a8ffe403d0504303", function(data) {
+        userInfo = data;
+    });
+}
+
 $(document).ready(async function(){
 
     // Load today's word from the server
@@ -57,10 +66,32 @@ $(document).ready(async function(){
         generateClue();
     });
 
-    // Get IP Address Info
-    $.getJSON("https://api.ipgeolocation.io/ipgeo?apiKey=ea5591be6fda4a97a8ffe403d0504303", function(data) {
-        userInfo = data;
-    })
+    // Consent management
+    const storedConsent = localStorage.getItem('bibleWordle_consent');
+    if (storedConsent === 'accepted') {
+        grantConsent();
+    } else if (storedConsent === 'declined') {
+        $('#consentBanner').hide();
+    } else {
+        $('#consentBanner').show();
+    }
+
+    $('#acceptConsent').click(function() {
+        localStorage.setItem('bibleWordle_consent', 'accepted');
+        grantConsent();
+        $('#consentBanner').slideUp(300);
+    });
+
+    $('#declineConsent').click(function() {
+        localStorage.setItem('bibleWordle_consent', 'declined');
+        $('#consentBanner').slideUp(300);
+    });
+
+    $('#manageConsent').click(function(e) {
+        e.preventDefault();
+        localStorage.removeItem('bibleWordle_consent');
+        $('#consentBanner').slideDown(300);
+    });
 
 });
 

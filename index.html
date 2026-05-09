@@ -30,13 +30,24 @@
 
 </head>
 
+<!-- Google Consent Mode v2 — defaults to denied until user consents -->
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied',
+        'functionality_storage': 'denied',
+        'personalization_storage': 'denied',
+        'security_storage': 'granted'
+    });
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E8DSC67CG7"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'G-E8DSC67CG7');
 </script>
 
@@ -245,6 +256,56 @@
         </div>
     </div>
 
+    <!-- Privacy Policy Modal -->
+    <div id="privacyModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg aboutModal" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center">
+                    <h3 class="modal-title" style="display:inline">Privacy Policy</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="privacyModalBody">
+                    <p><strong>Last updated: May 2026</strong></p>
+                    <br>
+                    <p><strong>What data we collect</strong></p>
+                    <p>When you play Bible Wordle, we may collect:</p>
+                    <ul>
+                        <li>Your approximate location (country and city) derived from your IP address</li>
+                        <li>Your IP address (used solely to determine location)</li>
+                        <li>Game results — your guesses, score, and whether you used a clue</li>
+                        <li>Usage data via Google Analytics (pages visited, session duration, device type)</li>
+                    </ul>
+                    <br>
+                    <p><strong>Why we collect it</strong></p>
+                    <p>We use this data to understand where our players are from and to improve the game experience. We do not sell your data or use it for advertising.</p>
+                    <br>
+                    <p><strong>Third-party services</strong></p>
+                    <ul>
+                        <li><strong>Google Analytics</strong> — used to understand site traffic. <a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy</a></li>
+                        <li><strong>ipgeolocation.io</strong> — used to derive your approximate location from your IP address. <a href="https://ipgeolocation.io/privacy.html" target="_blank">ipgeolocation.io Privacy Policy</a></li>
+                    </ul>
+                    <br>
+                    <p><strong>Your choices</strong></p>
+                    <p>You can decline data collection when prompted. If you decline, no location data will be collected and Google Analytics will not track your session. You can update your preference at any time using the <em>Manage Preferences</em> link at the bottom of the page.</p>
+                    <br>
+                    <p><strong>Data retention</strong></p>
+                    <p>Aggregated game analytics are retained for up to 12 months. Raw IP addresses are not stored.</p>
+                    <br>
+                    <p><strong>Your rights (UK &amp; EU GDPR)</strong></p>
+                    <p>You have the right to access, correct, or request deletion of any personal data held about you. To exercise these rights, contact us at <a href="mailto:info@bible-wordle.com">info@bible-wordle.com</a>.</p>
+                    <br>
+                    <p><strong>Contact</strong></p>
+                    <p><a href="mailto:info@bible-wordle.com">info@bible-wordle.com</a></p>
+                </div>
+                <div class="modal-footer" style="text-align:center">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Win Modal -->
     <div id="winModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" id="winModalContainer" role="document">
@@ -395,6 +456,29 @@
                 </div>
             </div>
         </div>
+    </div>
+
+
+    <!-- Cookie / Privacy Consent Banner -->
+    <div id="consentBanner">
+        <div id="consentBannerInner">
+            <div id="consentText">
+                <strong>Your Privacy</strong>
+                <p>We use Google Analytics and collect approximate location data (country &amp; city via your IP address) to improve Bible Wordle. No account or personal details are required to play.</p>
+                <a href="#" data-toggle="modal" data-target="#privacyModal">Privacy Policy</a>
+            </div>
+            <div id="consentButtons">
+                <button id="acceptConsent" class="btn btn-success btn-sm">Accept</button>
+                <button id="declineConsent" class="btn btn-default btn-sm">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Footer -->
+    <div id="privacyFooter">
+        <a href="#" data-toggle="modal" data-target="#privacyModal">Privacy Policy</a>
+        &nbsp;&middot;&nbsp;
+        <a href="#" id="manageConsent">Manage Preferences</a>
     </div>
 
 </body>

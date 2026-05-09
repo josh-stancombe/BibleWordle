@@ -365,6 +365,80 @@ body {
     }
 }
 
+/* Consent Banner */
+#consentBanner {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #2c2c2c;
+    color: #fff;
+    padding: 14px 20px;
+    z-index: 9999;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
+}
+
+#consentBannerInner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 900px;
+    margin: 0 auto;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+#consentText strong {
+    font-size: medium;
+    display: block;
+    margin-bottom: 3px;
+}
+
+#consentText p {
+    margin: 0 0 4px;
+    font-size: 12px;
+    color: #ccc;
+    line-height: 1.4;
+}
+
+#consentText a {
+    color: #a8d5a2;
+    font-size: 12px;
+}
+
+#consentButtons {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+/* Privacy Footer */
+#privacyFooter {
+    text-align: center;
+    font-size: 11px;
+    padding: 6px 0 10px;
+    color: #999;
+}
+
+#privacyFooter a, #privacyFooter #manageConsent {
+    color: #999;
+    text-decoration: underline;
+}
+
+#privacyModalBody ul {
+    padding-left: 20px;
+}
+
+#privacyModalBody ul li {
+    margin-bottom: 5px;
+    font-size: smaller;
+}
+
+#privacyModalBody p {
+    font-size: smaller;
+}
+
 @media only screen and (max-width: 900px) {
     .keyboardContainer {
         width: 94%;
