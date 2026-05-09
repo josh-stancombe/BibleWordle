@@ -463,17 +463,33 @@ body {
     text-decoration: underline;
 }
 
-#privacyModalBody ul {
-    padding-left: 20px;
-}
-
-#privacyModalBody ul li {
-    margin-bottom: 5px;
-    font-size: smaller;
+#privacyModalBody {
+    max-height: 60vh;
+    overflow-y: auto;
+    font-size: 12px;
+    line-height: 1.4;
 }
 
 #privacyModalBody p {
-    font-size: smaller;
+    margin-bottom: 4px;
+}
+
+#privacyModalBody p strong {
+    display: block;
+    margin-top: 10px;
+}
+
+#privacyModalBody p:first-child strong {
+    margin-top: 0;
+}
+
+#privacyModalBody ul {
+    padding-left: 18px;
+    margin-bottom: 4px;
+}
+
+#privacyModalBody ul li {
+    margin-bottom: 3px;
 }
 
 @media only screen and (max-width: 900px) {
@@ -517,6 +533,10 @@ body {
 
     #logo {
         width: 125px;
+    }
+
+    #privacyModalBody {
+        font-size: 11px;
     }
 }
 

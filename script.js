@@ -26,6 +26,32 @@ function grantConsent() {
 
 $(document).ready(async function(){
 
+    // Consent management — runs regardless of game load success
+    const storedConsent = localStorage.getItem('bibleWordle_consent');
+    if (storedConsent === 'accepted') {
+        grantConsent();
+    } else if (storedConsent === 'declined') {
+        $('#consentBanner').hide();
+    } else {
+        $('#consentBanner').show();
+    }
+
+    $('#acceptConsent').click(function() {
+        localStorage.setItem('bibleWordle_consent', 'accepted');
+        grantConsent();
+        $('#consentBanner').slideUp(300);
+    });
+
+    $('#declineConsent').click(function() {
+        localStorage.setItem('bibleWordle_consent', 'declined');
+        $('#consentBanner').slideUp(300);
+    });
+
+    $('#manageConsent').click(function(e) {
+        e.preventDefault();
+        $('#consentBanner').slideDown(300);
+    });
+
     // Load today's word from the server
     try {
         const response = await fetch('word.php');
@@ -64,33 +90,6 @@ $(document).ready(async function(){
     // Generate Clue
     $("#clueButton").click(function(){
         generateClue();
-    });
-
-    // Consent management
-    const storedConsent = localStorage.getItem('bibleWordle_consent');
-    if (storedConsent === 'accepted') {
-        grantConsent();
-    } else if (storedConsent === 'declined') {
-        $('#consentBanner').hide();
-    } else {
-        $('#consentBanner').show();
-    }
-
-    $('#acceptConsent').click(function() {
-        localStorage.setItem('bibleWordle_consent', 'accepted');
-        grantConsent();
-        $('#consentBanner').slideUp(300);
-    });
-
-    $('#declineConsent').click(function() {
-        localStorage.setItem('bibleWordle_consent', 'declined');
-        $('#consentBanner').slideUp(300);
-    });
-
-    $('#manageConsent').click(function(e) {
-        e.preventDefault();
-        localStorage.removeItem('bibleWordle_consent');
-        $('#consentBanner').slideDown(300);
     });
 
 });

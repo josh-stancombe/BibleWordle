@@ -29,8 +29,7 @@ if ($conn->connect_error) {
 $today = new DateTime();
 $date = $today->format("d-m-Y");
 $time = $today->format("H:i:s");
-$userInfo = $_POST['userInfo']['city'] . ' - ' . $_POST['userInfo']['country_name'];
-$ipAddress = $_POST['userInfo']['ip'];
+$userLocation = $_POST['userInfo']['city'] . ' - ' . $_POST['userInfo']['country_name'];
 $guessInfo = $_POST['guessInfo'];
 $score = $_POST['score'];
 $correctWord = $_POST['correctWord'];
@@ -45,12 +44,12 @@ foreach($guessInfo as $attempt => $word) {
     $attempt++; // Attempt is 0 indexed
 
     // All Guesses
-    $sql .= "INSERT INTO allguesses (date, time, userLocation, ipAddress, word, attempt, correctWord) VALUES ('$date', '$time', '$userInfo', '$ipAddress', '$word', '$attempt', '$correctWord');";
+    $sql .= "INSERT INTO allguesses (date, time, userLocation, word, attempt, correctWord) VALUES ('$date', '$time', '$userLocation', '$word', '$attempt', '$correctWord');";
 
     // Correct Guesses (include score and scripture guess)
     if ($lastGuess === $attempt) {
         if ($word === $correctWord) {
-            $sql .= "INSERT INTO correctguesses (date, time, userLocation, ipAddress, score, attempts, scriptureGuess, correctWord, clueUsed) VALUES ('$date', '$time', '$userInfo', '$ipAddress', '$score', '$attempt', '$scriptureGuess', '$correctWord', '$clueUsed');";
+            $sql .= "INSERT INTO correctguesses (date, time, userLocation, score, attempts, scriptureGuess, correctWord, clueUsed) VALUES ('$date', '$time', '$userLocation', '$score', '$attempt', '$scriptureGuess', '$correctWord', '$clueUsed');";
         }
     }
 }
