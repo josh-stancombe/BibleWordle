@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Poppins:wght@400;700&display=swap');
 
 * {
     box-sizing: border-box;
@@ -16,6 +16,7 @@ body {
     line-height: 1.5 !important;
     color: #333 !important;
     height: 100%;
+    background: linear-gradient(160deg, #f5f0e8 0%, #ede4d0 100%);
 }
 
 #logoContainer {
@@ -64,14 +65,15 @@ body {
     height: 35px;
     margin-top: 10px;
     margin-bottom: 10px;
-    border: solid #474747 1.5px;
+    border: solid #a07830 1.5px;
     border-radius: 25px;
     font-size: 20px;
     align-items: center;
     justify-content: center;
-    cursor: pointer;    
-    background: #474747;
-    color: white;
+    cursor: pointer;
+    background: linear-gradient(135deg, #c8962a, #e6b84a);
+    color: #2d1a00;
+    font-weight: bold;
     text-align: center;
 }
 
@@ -109,16 +111,18 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid black 1px;
-    background-color: whitesmoke;
+    border: 2px solid #c8a96e;
+    background-color: #fdf8f0;
     opacity: 90%;
-    border-radius: 10px;
-    box-shadow: 3px 3px darkslategrey;
+    border-radius: 8px;
+    box-shadow: 2px 3px 0px #a07840;
 }
 
-.keyboardLetter, #letterKeyRemove, #letterKeyEnter {
-    border: solid black 1px;
-    background: lightgrey;
+.keyboardLetter,
+#letterKeyRemove,
+#letterKeyEnter {
+    border: 1px solid #a89878;
+    background: #d4c9b0;
     font-weight: bold;
     height: 50px;
     display: flex;
@@ -127,7 +131,8 @@ body {
     align-items: center;
     margin: 0.75%;
     border-radius: 5px;
-    box-shadow: 2px 2px darkslategrey;
+    box-shadow: 2px 2px #8a7560;
+    color: #2d2417;
     width: 0px;
 }
 
@@ -140,17 +145,27 @@ body {
     font-size: 10.5pt;
 }
 
-.keyboardLetter:hover, #letterKeyRemove:hover, #letterKeyEnter:hover {
+.keyboardLetter:hover,
+#letterKeyRemove:hover,
+#letterKeyEnter:hover {
     cursor: pointer;
-    background-color: grey;
+    background-color: #b8aa90;
 }
 
-#aboutModalHeader, #aboutModalClose {
+#aboutModalHeader,
+#aboutModalClose {
     text-align: center;
 }
 
 #aboutModalTitle {
     display: inline;
+    font-family: 'Lora', serif;
+    letter-spacing: 0.5px;
+}
+
+#winModalTitle {
+    font-family: 'Lora', serif;
+    letter-spacing: 0.5px;
 }
 
 .aboutModal {
@@ -164,7 +179,9 @@ body {
     transform: translate(-50%, -50%) !important;
 }
 
-#invalidWordModal, #invalidLengthModal, #clueModal {
+#invalidWordModal,
+#invalidLengthModal,
+#clueModal {
     width: 325px;
 }
 
@@ -176,9 +193,10 @@ body {
 
 .modal-body {
     padding-top: 5px;
-} 
+}
 
-.modal-footer, .infoText #clueText {
+.modal-footer,
+.infoText #clueText {
     text-align: center !important;
     margin: 0px;
 }
@@ -226,7 +244,8 @@ body {
     margin-left: 5px;
 }
 
-#correctBookGuess, #wrongBookGuess {
+#correctBookGuess,
+#wrongBookGuess {
     display: none;
     font-size: larger;
 }
@@ -240,11 +259,11 @@ body {
 }
 
 .separator {
-    display:flex;
+    display: flex;
     align-items: center;
     margin-bottom: 5px;
 }
-  
+
 .separator .line {
     height: 1px;
     flex: 1;
@@ -260,7 +279,8 @@ body {
     text-align: center;
 }
 
-#scoreSection, #questionSection {
+#scoreSection,
+#questionSection {
     display: none;
 }
 
@@ -289,7 +309,8 @@ body {
     height: 60px;
 }
 
-#questionSection, #infoModalBody {
+#questionSection,
+#infoModalBody {
     font-size: smaller;
 }
 
@@ -336,18 +357,33 @@ body {
 }
 
 @keyframes letterInWordAnimation {
-    to {background-color: #c7af47;}
-    to {color: white;}
+    to {
+        background-color: #c7af47;
+    }
+
+    to {
+        color: white;
+    }
 }
 
 @keyframes correctLetterAnimation {
-    to {background-color: #69ab63;}
-    to {color: white;}
+    to {
+        background-color: #69ab63;
+    }
+
+    to {
+        color: white;
+    }
 }
 
 @keyframes wrongLetterAnimation {
-    to {background-color: #6e7476;}
-    to {color: white;}
+    to {
+        background-color: #6e7476;
+    }
+
+    to {
+        color: white;
+    }
 }
 
 @keyframes letterAnimation {
@@ -376,7 +412,7 @@ body {
     color: #fff;
     padding: 14px 20px;
     z-index: 9999;
-    box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
 }
 
 #consentBannerInner {
@@ -421,7 +457,8 @@ body {
     color: #999;
 }
 
-#privacyFooter a, #privacyFooter #manageConsent {
+#privacyFooter a,
+#privacyFooter #manageConsent {
     color: #999;
     text-decoration: underline;
 }
@@ -444,7 +481,9 @@ body {
         width: 94%;
     }
 
-    .keyboardLetter, #letterKeyEnter, #letterKeyRemove {
+    .keyboardLetter,
+    #letterKeyEnter,
+    #letterKeyRemove {
         height: 45px;
     }
 
@@ -461,17 +500,19 @@ body {
         width: 94%;
     }
 
-    .keyboardLetter, #letterKeyEnter, #letterKeyRemove {
+    .keyboardLetter,
+    #letterKeyEnter,
+    #letterKeyRemove {
         height: 40px;
     }
 
     .letterBox {
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
     }
 
     #logoContainer {
-        height: 50;
+        height: 50px;
     }
 
     #logo {
@@ -503,7 +544,7 @@ body {
 
 @media only screen and (min-width: 700px) {
     .aboutModal {
-        width: 75% !important;        
+        width: 75% !important;
     }
 }
 
